@@ -61,9 +61,9 @@ class App {
                     if (addmemberprompt === 'Engineer') {
                         console.log('You chose to add an engineer!');
                         this.engineerInfo();
-                        this.internInfo();
                     } else if (addmemberprompt === 'Intern') {
                         console.log('You chose to add an intern!');
+                        this.internInfo();
                     }
                     else { this.render(employees); }
                 }
@@ -80,7 +80,7 @@ class App {
                 },
                 {
                     type: "input",
-                    message: "What is your engineers ID?",
+                    message: "What is your engineer's ID?",
                     name: "id",
                 },
                 {
@@ -105,6 +105,55 @@ class App {
                     const engineer = new Engineer(name, id, email, githubid);
 
                     employees.push(engineer)
+                    console.log(employees)
+
+                    if (addmemberprompt === 'Engineer') {
+                        console.log('You chose to add an engineer!');
+                        this.engineerInfo();
+                    } else if (addmemberprompt === 'Intern') {
+                        console.log('You chose to add an intern!');
+                        this.internInfo();
+                    }
+                    else { this.render(employees); }
+                }
+            )
+    }
+
+    internInfo() {
+        inquirer
+            .prompt([
+                {
+                    type: "input",
+                    message: "What is your intern's name?",
+                    name: 'name'
+                },
+                {
+                    type: "input",
+                    message: "What is your intern's ID?",
+                    name: "id",
+                },
+                {
+                    type: "input",
+                    message: "What is your intern's email?",
+                    name: "email"
+                },
+                {
+                    type: "input",
+                    message: "What is your intern's school?",
+                    name: "school"
+                },
+                {
+                    type: "list",
+                    message: "Which type of team member would you like to add?",
+                    choices: ['Engineer', 'Intern', 'No additional team members'],
+                    name: 'addmemberprompt'
+                }
+            ])
+            .then(
+                ({ name, id, email, school, addmemberprompt }) => {
+                    const intern = new Intern(name, id, email, school);
+
+                    employees.push(intern)
                     console.log(employees)
 
                     if (addmemberprompt === 'Engineer') {

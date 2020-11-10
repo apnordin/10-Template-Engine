@@ -15,7 +15,7 @@ const render = require("./lib/htmlRenderer");
 // and to create objects for each team member (using the correct classes as blueprints!)
 class App {
 
-    run() {
+    runApp() {
         this.managerInfo();
     }
 
@@ -50,10 +50,17 @@ class App {
                 }
             ])
             .then(
-                ({ name, id, email, officenumber }) => {
+                ({ name, id, email, officenumber, addmemberprompt }) => {
                     const manager = new Manager(name, id, email, officenumber);
                     console.log(manager);
-                })
+                    if (addmemberprompt === 'Engineer') {
+                        console.log('You chose to add an engineer');
+                    } else if (addmemberprompt === 'Intern') {
+                        console.log('You chose to add an intern');
+                    }
+                    // else { render() }
+                }
+            )
     }
 }
 
@@ -83,4 +90,4 @@ class App {
 
 const app = new App();
 
-app.run();
+app.runApp();

@@ -61,6 +61,7 @@ class App {
                     if (addmemberprompt === 'Engineer') {
                         console.log('You chose to add an engineer!');
                         this.engineerInfo();
+                        this.internInfo();
                     } else if (addmemberprompt === 'Intern') {
                         console.log('You chose to add an intern!');
                     }
@@ -111,8 +112,9 @@ class App {
                         this.engineerInfo();
                     } else if (addmemberprompt === 'Intern') {
                         console.log('You chose to add an intern!');
+                        this.internInfo();
                     }
-                    else { render(employees); }
+                    else { this.render(employees); }
                 }
             )
     }

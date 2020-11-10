@@ -33,12 +33,15 @@ inquirer
         {
             type: "input",
             message: "What is your manager's office number?",
-            name: "managernumber"
+            name: "officenumber"
         }
     ])
 
     .then(
-        ({ }) => { }
+        ({ name, id, email, officenumber }) => {
+            const manager = new Manager(name, id, email, officenumber);
+            console.log(manager);
+        }
     )
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will

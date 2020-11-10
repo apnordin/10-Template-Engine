@@ -10,10 +10,12 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+let employees = []
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 class App {
+
 
     runApp() {
         this.managerInfo();
@@ -52,13 +54,65 @@ class App {
             .then(
                 ({ name, id, email, officenumber, addmemberprompt }) => {
                     const manager = new Manager(name, id, email, officenumber);
-                    console.log(manager);
+
+                    employees.push(manager)
+                    console.log(employees)
+
                     if (addmemberprompt === 'Engineer') {
-                        console.log('You chose to add an engineer');
+                        console.log('You chose to add an engineer!');
+                        this.engineerInfo();
                     } else if (addmemberprompt === 'Intern') {
-                        console.log('You chose to add an intern');
+                        console.log('You chose to add an intern!');
                     }
-                    // else { render() }
+                    else { this.render(employees); }
+                }
+            )
+    }
+
+    engineerInfo() {
+        inquirer
+            .prompt([
+                {
+                    type: "input",
+                    message: "What is your engineer's name?",
+                    name: 'name'
+                },
+                {
+                    type: "input",
+                    message: "What is your engineers ID?",
+                    name: "id",
+                },
+                {
+                    type: "input",
+                    message: "What is your engineer's email?",
+                    name: "email"
+                },
+                {
+                    type: "input",
+                    message: "What is your engineer's GitHub ID?",
+                    name: "githubid"
+                },
+                {
+                    type: "list",
+                    message: "Which type of team member would you like to add?",
+                    choices: ['Engineer', 'Intern', 'No additional team members'],
+                    name: 'addmemberprompt'
+                }
+            ])
+            .then(
+                ({ name, id, email, githubid, addmemberprompt }) => {
+                    const engineer = new Engineer(name, id, email, githubid);
+
+                    employees.push(engineer)
+                    console.log(employees)
+
+                    if (addmemberprompt === 'Engineer') {
+                        console.log('You chose to add an engineer!');
+                        this.engineerInfo();
+                    } else if (addmemberprompt === 'Intern') {
+                        console.log('You chose to add an intern!');
+                    }
+                    else { render(employees); }
                 }
             )
     }
